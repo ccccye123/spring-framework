@@ -115,6 +115,7 @@ public class DefaultNamespaceHandlerResolver implements NamespaceHandlerResolver
 	@Override
 	@Nullable
 	public NamespaceHandler resolve(String namespaceUri) {
+		// 默认 value 为Handler的ClassName字符串
 		Map<String, Object> handlerMappings = getHandlerMappings();
 		Object handlerOrClassName = handlerMappings.get(namespaceUri);
 		if (handlerOrClassName == null) {
@@ -133,6 +134,7 @@ public class DefaultNamespaceHandlerResolver implements NamespaceHandlerResolver
 				}
 				NamespaceHandler namespaceHandler = (NamespaceHandler) BeanUtils.instantiateClass(handlerClass);
 				namespaceHandler.init();
+				// 更新 value 为对应handler对象
 				handlerMappings.put(namespaceUri, namespaceHandler);
 				return namespaceHandler;
 			}
